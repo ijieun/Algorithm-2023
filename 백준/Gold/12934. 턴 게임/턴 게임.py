@@ -1,33 +1,27 @@
 x, y = map(int, input().split())
-sum_val = x + y
-big = max(x, y)
-a = 0
-is_possible = True
 
-#가능한 'a' 값을 찾기
-for i in range(big + 1):
-    if (sum_val * 2) - i == i ** 2:
-        a = i
-        is_possible = True
-        break
-    elif (sum_val * 2) - i < i ** 2:
-        is_possible = False
-        break
-    else:
-        is_possible = False
-
-#가능한 경우
-if is_possible:
-    cnt = 0
-    
-    # 최소 이길 횟수 계산
-    for i in range(a, 0, -1):
-        if x >= i:
-            x -= i
-            cnt += 1
-    
-#결과 출력
-    print(cnt)
+if x == 0 and y == 0:
+    print(0)
 else:
-#불가능한 경우
-    print(-1)
+    k = 1
+    possible = True
+    while True:
+        # 두 사람이 이긴 횟수의 합이 x와 y의 합과 같아지는 경우
+        if x + y == k * (k + 1) // 2:
+            break
+        # 두 사람이 이긴 횟수의 합이 x와 y의 합보다 크게 되는 경우
+        if x + y < k * (k + 1) // 2:
+            possible = False
+            break
+        k += 1
+
+    if not possible:
+        print(-1)
+    else:
+        result = 0
+        for i in range(k, 0, -1):
+            if x == 0:
+                break
+            x -= min(x, i)
+            result += 1
+        print(result)
